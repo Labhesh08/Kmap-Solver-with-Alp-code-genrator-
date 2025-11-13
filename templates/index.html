@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>K-Map & Expression Tool</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+<div class="container">
+
+    <h1>K-Map Simplifier & ALP Generator</h1>
+
+    <form method="POST">
+        <label for="mode">Select Mode</label>
+        <select name="mode" id="mode" onchange="toggleMode()">
+            <option value="expr" {% if result.mode=='expr' %}selected{% endif %}>Boolean Expression → K-Map</option>
+            <option value="kmap" {% if result.mode=='kmap' %}selected{% endif %}>K-Map → Expression</option>
+        </select>
+
+        <div id="expr_input">
+            <label>Boolean Expression</label>
+            <input type="text" name="boolean_expr" placeholder="A'B + AB" 
+                   value="{{ result.original|default('') }}">
+        </div>
+
+        <div id="kmap_input" style="display:none;">
+            <label>Number of Variables</label>
+            <select name="var_count">
+                <option value="2">2 Variables</option>
+                <option value="3">3 Variables</option>
+                <option value="4">4 Variables</option>
+            </select>
+
+            <label>K-Map Values</label>
+            <textarea name="kmap_values" placeholder="0 1 1 0 ...">{{ result.kmap_values|join(' ') if result.kmap_values else '' }}</textarea>
+        </div>
+
+        <button type="submit">Generate</button>
+    </form>
+
+    {% if result.error %}
+        <div class="error">{{ result.error }}</div>
+    {% endif %}
+
+    {% if result.sop_expr %}
+        <div class="card">
+            <h3>SOP Expression</h3>
+            <pre>{{ result.sop_expr }}</pre>
+        </div>
+    {% endif %}
+
+    {% if result.simplified %}
+        <div class="card">
+            <h3>Simplified Expression</h3>
+            <pre>{{ result.simplified }}</pre>
+        </div>
+    {% endif %}
+
+    {% if result.truth_table %}
+        <div class="card">
+            <h3>Truth Table</h3>
+            <table>
+                <tr>
+                    {% for v in result.variables %}<th>{{ v }}</th>{% endfor %}
+                    <th>Y</th>
+                </tr>
+                {% for row in result.truth_table %}
+                <tr>{% for val in row %}<td>{{ val }}</td>{% endfor %}</tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% endif %}
+
+    {% if result.kmap_grid %}
+        <div class="card">
+            <h3>K-Map ({{ result.variables|length }} Variables)</h3>
+            <table>
+                <tr><th></th>{% for c in result.kmap_cols %}<th>{{ c }}</th>{% endfor %}</tr>
+                {% for r in result.kmap_grid %}
+                <tr>
+                    <th>{{ result.kmap_rows[loop.index0] }}</th>
+                    {% for val in r %}<td>{{ val }}</td>{% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% endif %}
+
+    {% if result.asm_code %}
+        <div class="card">
+            <h3>Generated Assembly Code</h3>
+            <button class="copy-btn" onclick="copyAsm()">Copy</button>
+            <pre id="asmCode">{{ result.asm_code }}</pre>
+        </div>
+    {% endif %}
+
+</div>
+
+<script>
+function toggleMode() {
+    const mode = document.getElementById("mode").value;
+    document.getElementById("expr_input").style.display = (mode === "expr") ? "block" : "none";
+    document.getElementById("kmap_input").style.display = (mode === "kmap") ? "block" : "none";
+}
+toggleMode();
+
+function copyAsm() {
+    const text = document.getElementById("asmCode").innerText;
+    navigator.clipboard.writeText(text).then(() => alert("Assembly copied!"));
+}
+</script>
+
+</body>
+</html>
