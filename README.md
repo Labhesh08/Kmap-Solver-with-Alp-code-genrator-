@@ -32,15 +32,16 @@ Switching from logic → assembly is confusing
 
 So I tried building something that bridges that gap.
 
-🛠️ Tech Stack
 
-Python backend 
+🛠️ Tech Stack
 
 HTML
 
 CSS
 
 JavaScript
+
+Python 
 
 🌐 Hosted on Render
 
@@ -55,7 +56,8 @@ cd Kmap-Solver-with-Alp-code-genrator-
 
 Open index.html in your browser.
 
-👨‍💻 Author
+
+👨‍💻 Author-
 Labhesh Sarode 
 
 GitHub: https://github.com/Labhesh08⁠
