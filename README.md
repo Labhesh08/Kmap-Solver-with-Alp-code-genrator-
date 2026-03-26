@@ -7,6 +7,7 @@
 A simple web app that helps you solve Karnaugh Maps (K-Maps) and also generates Assembly Language (ALP) code from the simplified logic.
 Built mainly for students who are tired of solving K-maps manually and then figuring out how it connects to microprocessor-level code 😅
 
+
 🚀 What this project does
 
 🧩 Takes Boolean expression / minterms as input
@@ -18,6 +19,7 @@ Built mainly for students who are tired of solving K-maps manually and then figu
 💻 Outputs minimized expression
 
 🔧 Generates basic ALP code
+
 
 
 💡 Why I built this
