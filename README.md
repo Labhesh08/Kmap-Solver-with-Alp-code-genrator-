@@ -45,6 +45,7 @@ JavaScript
 ▶️ Run locally
 
 Bash
+
 git clone https://github.com/Labhesh08/Kmap-Solver-with-Alp-code-genrator-
 
 cd Kmap-Solver-with-Alp-code-genrator-
