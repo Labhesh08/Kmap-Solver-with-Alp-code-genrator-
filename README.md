@@ -34,6 +34,8 @@ So I tried building something that bridges that gap.
 
 🛠️ Tech Stack
 
+Python backend 
+
 HTML
 
 CSS
@@ -41,6 +43,7 @@ CSS
 JavaScript
 
 🌐 Hosted on Render
+
 
 ▶️ Run locally
 
